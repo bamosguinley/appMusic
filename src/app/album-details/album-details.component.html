@@ -1,15 +1,15 @@
 <div class="container" *ngIf="album.length>0">
   <div class="card" style="width: 18rem">
-    <img src="..." class="card-img-top" alt="..." />
+    <img src="{{album[0].url}}" class="card-img-top" alt="..." />
     <div class="card-body">
       <h5 class="card-title">{{album[0].title}}</h5>
       <p class="card-text">
         Name: {{album[0].name}}
       </p>
-      <button class="btn btn-primary m-3" (click)="startPlaying(album[0])">Play</button>
+      <button class="btn btn-primary m-3" (click)="startPlaying()">Play <img src="../../assets/img/player.svg" alt=""></button>
       <p class="card-header">List des songs</p>
-      <ul>
-        <li *ngFor="let songs of currentSongs[0].list">{{songs}}
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let songs of currentSongs[0].list">{{songs}}
         </li>
       </ul>
     </div>

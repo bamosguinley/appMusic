@@ -9,14 +9,19 @@ import { Album } from '../interfaces/album';
 })
 export class AlbumsComponent {
   albums: Album[] = [];
-  albumId: string='';
+  albumId: string = '';
+  @Input() sendPlayingAlbum: string = '';
   constructor(private albumService: AlbumService) {}
   ngOnInit() {
     this.albums = this.albumService.getAlbums();
   }
 
-  getAlbum(albumId:string) {
+  getAlbum(albumId: string) {
     this.albumId = albumId;
   }
-
+  getAlbumForPlay(e: string) {
+    console.log(e);
+    
+    this.sendPlayingAlbum = e;
+  }
 }

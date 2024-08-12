@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input,Output } from '@angular/core';
 import { Album } from '../interfaces/album';
 import { AlbumService } from '../services/album.service';
 import { List } from '../interfaces/list';
@@ -10,10 +10,12 @@ import { List } from '../interfaces/list';
 })
 export class AlbumDetailsComponent {
   @Input() currentAlbum?: string;
+  @Output() sendToPlayer = new EventEmitter<string>();
   albums: Album[] = [];
   album: Album[] = [];
   albumsDetails: List[] = [];
   currentSongs: List[] = [];
+
   constructor(private albumService: AlbumService) {
     this.albumsDetails = this.albumService.getSongs();
   }
@@ -29,7 +31,9 @@ export class AlbumDetailsComponent {
     }
   }
 
-  startPlaying(album:Album) {
-    album.status = 'on';    
+  startPlaying() {
+    if (this.currentAlbum) {
+      this.sendToPlayer.emit(this.currentAlbum);
+    }
   }
 }

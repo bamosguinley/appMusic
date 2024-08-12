@@ -1,15 +1,16 @@
-.progress-container {
+/* .progress-container {
   width: 100%;
   background-color: #f3f3f3;
   border-radius: 5px;
   overflow: hidden;
-}
+} */
 
 .progress-bar {
   height: 5px;
+  padding:10px 0px;
   background-color: #4caf50;
   width: 0;
-  transition: width 0.3s;
+  transition: width 0.2s ease-out;
 }
 
 p {

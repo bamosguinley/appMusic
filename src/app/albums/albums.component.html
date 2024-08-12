@@ -1,37 +1,52 @@
-<div class="container d-flex">
-    <div class="details-container">
-  <app-album-details [currentAlbum]="albumId"></app-album-details>
-</div>
-<div class="ambums-list">
-    
-  <div class="player">
-    <app-album-player></app-album-player>
+<div class="container d-flex mt-4">
+  <div class="details-container">
+    <app-album-details
+      [currentAlbum]="albumId"
+      (sendToPlayer)="getAlbumForPlay($event)"
+    ></app-album-details>
   </div>
-
-  <div class="search">
-    <app-album-search></app-album-search>
-  </div>
-  <div class="pagination">pagination zone</div>
-
-  <div class="list col-md-auto">
-    <div class="card mb-3" *ngFor="let album of albums ;index">
-         <div class="card-header">{{album.ref}}</div>
-      <div class="card-body">
-        <a href="album/{{album.id}}">{{album.name}}</a>
-        <p class="card-text">
-         {{album.description}}
-        </p>
-       <div class="tags" *ngIf="album.tags" > 
-           <!-- tag list -->
-         <span *ngFor="let tag of album.tags;index" >
-            {{tag}}
-        </span>
+  <div class="ambums-list">
+    <div class="player" *ngIf="sendPlayingAlbum">
+      <app-album-player [playingId]="sendPlayingAlbum"></app-album-player>
     </div>
-    <button class="btn btn-primary" (click)="getAlbum(album.id)">Details</button>
+
+    <div class="search">
+      <app-album-search></app-album-search>
+    </div>
+    <div class="pagination">pagination zone</div>
+
+    <div class="list col-md-auto">
+      <div class="card mb-3" *ngFor="let album of albums; index">
+        <div class="card-header">{{ album.ref }}</div>
+        <div class="card-body">
+          <a href="album/{{ album.id }}">{{ album.name }}</a>
+          <p class="card-text">
+            {{ album.description }}
+          </p>
+          <div class="tags" *ngIf="album.tags">
+            <!-- tag list -->
+            <span *ngFor="let tag of album.tags; index" class="tag">
+              {{ tag }}
+            </span>
+          </div>
+          <div class="btn-section mt-4">
+            <button class="btn btn-primary" (click)="getAlbum(album.id)">
+              En
+            </button>
+            <span class="mx-3">
+             <img src="../../assets/img/heart.svg" alt=""> 
+             5
+            </span>
+            <span>
+               <img src="../../assets/img/clock.svg" alt="">
+               {{album.duration+' min'}}
+            </span>
+            <button class="btn btn-primary" (click)="getAlbum(album.id)">
+              Details
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-</div>
-
 </div>
