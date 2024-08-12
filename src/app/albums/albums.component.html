@@ -1,0 +1,37 @@
+<div class="container d-flex">
+    <div class="details-container">
+  <app-album-details [currentAlbum]="albumId"></app-album-details>
+</div>
+<div class="ambums-list">
+    
+  <div class="player">
+    <app-album-player></app-album-player>
+  </div>
+
+  <div class="search">
+    <app-album-search></app-album-search>
+  </div>
+  <div class="pagination">pagination zone</div>
+
+  <div class="list col-md-auto">
+    <div class="card mb-3" *ngFor="let album of albums ;index">
+         <div class="card-header">{{album.ref}}</div>
+      <div class="card-body">
+        <a href="album/{{album.id}}">{{album.name}}</a>
+        <p class="card-text">
+         {{album.description}}
+        </p>
+       <div class="tags" *ngIf="album.tags" > 
+           <!-- tag list -->
+         <span *ngFor="let tag of album.tags;index" >
+            {{tag}}
+        </span>
+    </div>
+    <button class="btn btn-primary" (click)="getAlbum(album.id)">Details</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>
