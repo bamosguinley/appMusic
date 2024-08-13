@@ -5,21 +5,21 @@
       (sendToPlayer)="getAlbumForPlay($event)"
     ></app-album-details>
   </div>
-  <div class="ambums-list">
+  <div class="ambums-list w-100">
     <div class="player" *ngIf="sendPlayingAlbum">
       <app-album-player [playingId]="sendPlayingAlbum"></app-album-player>
     </div>
 
-    <div class="search">
-      <app-album-search></app-album-search>
+    <div class="search w-100 g-3">
+      <app-album-search (searchEvent)="handleSearch($event)"></app-album-search>
     </div>
-    <div class="pagination">pagination zone</div>
+    <!-- <div class="pagination">pagination zone</div> -->
 
     <div class="list col-md-auto">
       <div class="card mb-3" *ngFor="let album of albums; index">
         <div class="card-header">{{ album.ref }}</div>
         <div class="card-body">
-          <a href="album/{{ album.id }}">{{ album.name }}</a>
+          <a class="card-title" href="album/{{ album.id }}">{{ album.name }}</a>
           <p class="card-text">
             {{ album.description }}
           </p>

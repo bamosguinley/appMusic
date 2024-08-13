@@ -8,8 +8,10 @@ import { Album } from '../interfaces/album';
   styleUrl: './albums.component.css',
 })
 export class AlbumsComponent {
+  queryString: string = '';
   albums: Album[] = [];
   albumId: string = '';
+  filtererdAlbum:Album[]=[];
   @Input() sendPlayingAlbum: string = '';
   constructor(private albumService: AlbumService) {}
   ngOnInit() {
@@ -19,9 +21,25 @@ export class AlbumsComponent {
   getAlbum(albumId: string) {
     this.albumId = albumId;
   }
+
+  handleSearch(query: string): void {
+    this.queryString = query;
+    console.log(this.queryString);
+    this.filterItems();
+  }
+
+  public filterItems(): void {
+    if (this.queryString.trim().length>0 ) {
+      this.albums= this.albums.filter((item) =>
+        item.name.toLowerCase().includes(this.queryString.toLowerCase())
+      );
+    } else {
+      this.albums = this.albumService.getAlbums();
+    }
+  }
+
   getAlbumForPlay(e: string) {
     console.log(e);
-    
     this.sendPlayingAlbum = e;
   }
 }
