@@ -11,13 +11,22 @@ export class AlbumsComponent {
   queryString: string = '';
   albums: Album[] = [];
   albumId: string = '';
+  loader: boolean = true;
+  loaderCount?: any;
   filtererdAlbum:Album[]=[];
   @Input() sendPlayingAlbum: string = '';
   constructor(private albumService: AlbumService) {}
   ngOnInit() {
     this.albums = this.albumService.getAlbums();
+      this.startLoading();
+  
   }
-
+  startLoading() {
+      this.loaderCount = setTimeout(() => {
+        this.loader=false;
+        console.log(this.loader); 
+      },2000)
+  }
   getAlbum(albumId: string) {
     this.albumId = albumId;
   }
@@ -42,4 +51,5 @@ export class AlbumsComponent {
     console.log(e);
     this.sendPlayingAlbum = e;
   }
+
 }

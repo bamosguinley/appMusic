@@ -1,11 +1,13 @@
-<div class="container d-flex mt-4">
+<div class="container d-flex mt-4" >
+  <div class="spinner-grow spine text-primary" style="width: 3rem; height: 3rem;" role="status"  *ngIf="loader">
+</div>
   <div class="details-container">
     <app-album-details
       [currentAlbum]="albumId"
       (sendToPlayer)="getAlbumForPlay($event)"
     ></app-album-details>
   </div>
-  <div class="ambums-list w-100">
+  <div class="ambums-list w-100" *ngIf="loader==false">
     <div class="player" *ngIf="sendPlayingAlbum">
       <app-album-player [playingId]="sendPlayingAlbum"></app-album-player>
     </div>
@@ -15,7 +17,7 @@
     </div>
     <!-- <div class="pagination">pagination zone</div> -->
 
-    <div class="list col-md-auto">
+    <div class="list col-md-auto" *ngIf="albums">
       <div class="card mb-3" *ngFor="let album of albums; index">
         <div class="card-header">{{ album.ref }}</div>
         <div class="card-body">
@@ -34,12 +36,12 @@
               En
             </button>
             <span class="mx-3">
-             <img src="../../assets/img/heart.svg" alt=""> 
-             5
+              <img src="../../assets/img/heart.svg" alt="" />
+              5
             </span>
             <span>
-               <img src="../../assets/img/clock.svg" alt="">
-               {{album.duration+' min'}}
+              <img src="../../assets/img/clock.svg" alt="" />
+              {{ album.duration + " min" }}
             </span>
             <button class="btn btn-primary" (click)="getAlbum(album.id)">
               Details
@@ -48,5 +50,6 @@
         </div>
       </div>
     </div>
+    <div class="text-center" *ngIf="albums.length == 0">Aucun album trouvé</div>
   </div>
 </div>
