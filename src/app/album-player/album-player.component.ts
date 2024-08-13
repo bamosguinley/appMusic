@@ -39,7 +39,6 @@ export class AlbumPlayerComponent {
       this.interval = setInterval(() => {
         this.currentStep ++;
         this.progress = (this.currentStep / this.totalSteps) * 100;
-        console.log(this.currentStep + 'le total');
         clearInterval(this.interval);
         this.getProgress()
       }, 1000);

@@ -15,7 +15,10 @@
     <div class="search w-100 g-3">
       <app-album-search (searchEvent)="handleSearch($event)"></app-album-search>
     </div>
-    <!-- <div class="pagination">pagination zone</div> -->
+    <div class="pagination justify-content-center mb-3">
+      <button class="page-link mx-3">Prév</button>
+      <button class="page-link">Next</button>
+    </div>
 
     <div class="list col-md-auto" *ngIf="albums">
       <div class="card mb-3" *ngFor="let album of albums; index">
