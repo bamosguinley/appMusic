@@ -1,13 +1,17 @@
-<div class="container d-flex mt-4" >
-  <div class="spinner-grow spine text-primary" style="width: 3rem; height: 3rem;" role="status"  *ngIf="loader">
-</div>
+<div class="container d-flex mt-4">
+  <div
+    class="spinner-grow spine text-primary"
+    style="width: 3rem; height: 3rem"
+    role="status"
+    *ngIf="loader"
+  ></div>
   <div class="details-container">
     <app-album-details
       [currentAlbum]="albumId"
       (sendToPlayer)="getAlbumForPlay($event)"
     ></app-album-details>
   </div>
-  <div class="ambums-list w-100" *ngIf="loader==false">
+  <div class="ambums-list w-100" *ngIf="loader == false">
     <div class="player" *ngIf="sendPlayingAlbum">
       <app-album-player [playingId]="sendPlayingAlbum"></app-album-player>
     </div>
@@ -15,13 +19,16 @@
     <div class="search w-100 g-3">
       <app-album-search (searchEvent)="handleSearch($event)"></app-album-search>
     </div>
-    <div class="pagination justify-content-center mb-3">
-      <button class="page-link mx-3">Prév</button>
-      <button class="page-link">Next</button>
+    <div class="pagination-controls mt-4 text-center mb-3">
+      <button class="btn btn-secondary"(click)="previousPage()" [disabled]="currentPage === 1"> Précédent</button>
+      <button class="btn mx-2" (click)="butnPages(1)" [disabled]="currentPage === 1">1</button>
+      <button class="btn" (click)="butnPages(2)" [disabled]="currentPage === 2">2</button>
+      <button class="btn mx-2" (click)="butnPages(3)" [disabled]="currentPage === 3">3</button>
+      <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage * albumsPerPage >= albums.length"> Suivant</button>
     </div>
 
-    <div class="list col-md-auto" *ngIf="albums">
-      <div class="card mb-3" *ngFor="let album of albums; index">
+    <div class="list col-md-auto" *ngIf="displayedAlbums">
+      <div class="card mb-3" *ngFor="let album of displayedAlbums; index">
         <div class="card-header">{{ album.ref }}</div>
         <div class="card-body">
           <a class="card-title" href="album/{{ album.id }}">{{ album.name }}</a>

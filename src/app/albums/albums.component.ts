@@ -13,19 +13,28 @@ export class AlbumsComponent {
   albumId: string = '';
   loader: boolean = true;
   loaderCount?: any;
-  filtererdAlbum:Album[]=[];
+  filtererdAlbum: Album[] = [];
+
+  displayedAlbums: Album[] = []; //les données de pagination à afficher
+
+  currentPage: number = 1; //page courrante
+
+  pageNumber: number = 1; //nombre de page
+
+  albumsPerPage: number = 2; //nombre d'album par page
+
   @Input() sendPlayingAlbum: string = '';
-  constructor(private albumService: AlbumService) {}
+  constructor(private albumService: AlbumService) { }
   ngOnInit() {
     this.albums = this.albumService.getAlbums();
-      this.startLoading();
-  
+    this.loadAlbums();
+    this.startLoading();
   }
   startLoading() {
-      this.loaderCount = setTimeout(() => {
-        this.loader=false;
-        console.log(this.loader); 
-      },2000)
+    this.loaderCount = setTimeout(() => {
+      this.loader = false;
+      console.log(this.loader);
+    }, 2000);
   }
   getAlbum(albumId: string) {
     this.albumId = albumId;
@@ -38,12 +47,12 @@ export class AlbumsComponent {
   }
 
   public filterItems(): void {
-    if (this.queryString.trim().length>0 ) {
-      this.albums= this.albums.filter((item) =>
+    if (this.queryString.trim().length > 0) {
+      this.displayedAlbums = this.albums.filter((item) =>
         item.name.toLowerCase().includes(this.queryString.toLowerCase())
       );
     } else {
-      this.albums = this.albumService.getAlbums();
+      this.butnPages(this.currentPage);
     }
   }
 
@@ -52,4 +61,24 @@ export class AlbumsComponent {
     this.sendPlayingAlbum = e;
   }
 
+  loadAlbums() {
+    const startIndex = (this.currentPage - 1) * this.albumsPerPage;
+    const endIndex = startIndex + this.albumsPerPage;
+    this.displayedAlbums = this.albums.slice(startIndex, endIndex);
+  }
+  butnPages(n: number) {
+    this.currentPage = n;
+    this.loadAlbums();
+  }
+  nextPage() {
+    this.currentPage++;
+    this.loadAlbums();
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.loadAlbums();
+    }
+  }
 }
