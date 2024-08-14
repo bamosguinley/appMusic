@@ -14,3 +14,28 @@
 /* .list:hover{
     scale: 1.2;
 } */
+
+ .pagination {
+               display: flex;
+               justify-content: center;
+               gap: 5px;
+               margin-top: 20px;
+             }
+             
+             .pagination button {
+               padding: 5px 10px;
+               border: 1px solid #ccc;
+               border-radius: 3px;
+               background-color: #f8f8f8;
+               cursor: pointer;
+             }
+             
+             .pagination button.active {
+               background-color: #007bff;
+               color: white;
+             }
+             
+             .pagination button:disabled {
+               cursor: not-allowed;
+               opacity: 0.5;
+             }

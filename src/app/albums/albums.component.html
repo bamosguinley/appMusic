@@ -16,17 +16,21 @@
       <app-album-player [playingId]="sendPlayingAlbum"></app-album-player>
     </div>
 
-    <div class="search w-100 g-3">
+    <div class="search g-3">
       <app-album-search (searchEvent)="handleSearch($event)"></app-album-search>
     </div>
-    <div class="pagination-controls mt-4 text-center mb-3">
-      <button class="btn btn-secondary"(click)="previousPage()" [disabled]="currentPage === 1"> Précédent</button>
-      <button class="btn mx-2" (click)="butnPages(1)" [disabled]="currentPage === 1">1</button>
-      <button class="btn" (click)="butnPages(2)" [disabled]="currentPage === 2">2</button>
-      <button class="btn mx-2" (click)="butnPages(3)" [disabled]="currentPage === 3">3</button>
-      <button class="btn btn-secondary" (click)="nextPage()" [disabled]="currentPage * albumsPerPage >= albums.length"> Suivant</button>
-    </div>
 
+
+  <div class="pagination mb-3 ">
+      <button (click)="previousPage()" [disabled]="currentPage === 1"> Précédent</button>
+      <button *ngFor="let page of pageNumbers" 
+              (click)="butnPages(page)" 
+              [class.active]="page === currentPage">
+        {{ page }}
+      </button>
+      <button (click)="nextPage()" [disabled]="currentPage * albumsPerPage >= albums.length"> Suivant</button>
+    </div>
+    
     <div class="list col-md-auto" *ngIf="displayedAlbums">
       <div class="card mb-3" *ngFor="let album of displayedAlbums; index">
         <div class="card-header">{{ album.ref }}</div>
@@ -60,6 +64,6 @@
         </div>
       </div>
     </div>
-    <div class="text-center" *ngIf="albums.length == 0">Aucun album trouvé</div>
+    <div class="text-center" *ngIf="displayedAlbums.length == 0">Aucun album trouvé</div>
   </div>
 </div>

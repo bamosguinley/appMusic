@@ -23,10 +23,17 @@ export class AlbumsComponent {
 
   albumsPerPage: number = 2; //nombre d'album par page
 
+  pageNumbers?: number[]; //numero des pages
+  totalPages!:number; //nombre total de pages
+
   @Input() sendPlayingAlbum: string = '';
-  constructor(private albumService: AlbumService) { }
+  constructor(private albumService: AlbumService) {}
   ngOnInit() {
     this.albums = this.albumService.getAlbums();
+    this.totalPages = this.albumService.getAlbums().length / 2;
+    this.updatePageNumbers();
+    console.log(this.pageNumbers+'nbr');
+    
     this.loadAlbums();
     this.startLoading();
   }
@@ -66,6 +73,7 @@ export class AlbumsComponent {
     const endIndex = startIndex + this.albumsPerPage;
     this.displayedAlbums = this.albums.slice(startIndex, endIndex);
   }
+
   butnPages(n: number) {
     this.currentPage = n;
     this.loadAlbums();
@@ -80,5 +88,15 @@ export class AlbumsComponent {
       this.currentPage--;
       this.loadAlbums();
     }
+  }
+
+  updatePageNumbers(): void {
+    const range = 10;
+    const start = Math.max(1, this.currentPage - range);
+    const end = Math.min(this.totalPages, this.currentPage + range);
+    this.pageNumbers = Array.from(
+      { length: end - start + 1 },
+      (_, i) => start + i
+    );
   }
 }
