@@ -10,6 +10,7 @@ import { AlbumSearchComponent } from './album-search/album-search.component';
 import { AlbumsComponent } from './albums/albums.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     AlbumDetailsComponent,
     AlbumPlayerComponent,
     AlbumSearchComponent,
-    AlbumsComponent
+    AlbumsComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

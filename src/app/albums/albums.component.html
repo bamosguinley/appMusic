@@ -22,13 +22,13 @@
 
 
   <div class="pagination mb-3 ">
-      <button (click)="previousPage()" [disabled]="currentPage === 1"> Précédent</button>
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Prev</button>
       <button *ngFor="let page of pageNumbers" 
               (click)="butnPages(page)" 
               [class.active]="page === currentPage">
         {{ page }}
       </button>
-      <button (click)="nextPage()" [disabled]="currentPage * albumsPerPage >= albums.length"> Suivant</button>
+      <button (click)="nextPage()" [disabled]="currentPage * albumsPerPage >= albums.length">Next</button>
     </div>
     
     <div class="list col-md-auto" *ngIf="displayedAlbums">
@@ -51,7 +51,7 @@
             </button>
             <span class="mx-3">
               <img src="../../assets/img/heart.svg" alt="" />
-              5
+              {{album.like}}
             </span>
             <span>
               <img src="../../assets/img/clock.svg" alt="" />
@@ -64,6 +64,6 @@
         </div>
       </div>
     </div>
-    <div class="text-center" *ngIf="displayedAlbums.length == 0">Aucun album trouvé</div>
+    <div class="text-center" *ngIf="displayedAlbums.length == 0">Aucun album trouvé 😥</div>
   </div>
 </div>

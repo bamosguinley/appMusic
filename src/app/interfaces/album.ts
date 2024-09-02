@@ -9,9 +9,4 @@ export interface Album {
   like?: string;
   tags?: string[];
   status: string;
-
-
-
-
-
 }
